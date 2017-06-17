@@ -16,8 +16,8 @@ public class AbstractNioController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractNioController.class);
 
-    protected <T> DeferredResult<ResponseEntity<?>> executeDeferred(final Supplier<T> supplier) {
-        final DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<>();
+    protected <T> DeferredResult<ResponseEntity<T>> executeDeferred(final Supplier<T> supplier) {
+        final DeferredResult<ResponseEntity<T>> deferredResult = new DeferredResult<>();
 
         CompletableFuture.supplyAsync(supplier)
                 .whenCompleteAsync((result, throwable) -> {
