@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Propagation;
 import java.util.ArrayList;
 import java.util.List;
 
+import static in.cfcomputing.thor.core.dci.ContextHolder.isNotEmpty;
+
 public abstract class NestedRootContext extends DeferredContext {
     private final List<Context> children = new ArrayList<>();
 
@@ -168,7 +170,7 @@ public abstract class NestedRootContext extends DeferredContext {
     }
 
     private Context existingContext() {
-        return ContextHolder.isNotEmpty() ? resolve() : this;
+        return isNotEmpty() ? resolve() : this;
     }
 
     private boolean isSameContext() {

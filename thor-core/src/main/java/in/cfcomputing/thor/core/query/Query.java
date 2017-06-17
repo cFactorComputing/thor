@@ -1,7 +1,6 @@
 package in.cfcomputing.thor.core.query;
 
 import in.cfcomputing.odin.core.services.security.provider.AuthenticatedUserProvider;
-import in.cfcomputing.thor.core.dci.ContextFactoryProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -44,8 +43,8 @@ public abstract class Query<R, S> {
 
         final Repositories repositories = this.getClass().getAnnotation(Repositories.class);
         final Class[] values = repositories.values();
-        final ContextFactoryProvider provider = get(ContextFactoryProvider.class);
-        Validate.notNull(provider, "Context Factory provider is empty.");
+        final RepositoryProvider provider = get(RepositoryProvider.class);
+        Validate.notNull(provider, "Repository provider is empty.");
 
         for (Class repositoryClazz : values) {
             Validate.notNull(repositoryClazz, "Repository class is empty.");
@@ -80,7 +79,7 @@ public abstract class Query<R, S> {
         }
     }
 
-    public <T extends Query<R, S>> T withFactoryProvider(final ContextFactoryProvider provider) {
+    public <T extends Query<R, S>> T withRepositoryProvider(final RepositoryProvider provider) {
         return put(provider);
     }
 

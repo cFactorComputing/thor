@@ -76,7 +76,7 @@ public abstract class Context {
         contextProperties.addResult(result);
     }
 
-    public Context resolve() {
+    public static Context resolve() {
         return ContextHolder.get();
     }
 
