@@ -1,6 +1,8 @@
 package in.cfcomputing.thor.core.dci;
 
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.springframework.transaction.annotation.Propagation;
 
 import java.util.HashMap;
@@ -58,7 +60,9 @@ class ContextProperties {
     }
 
     protected String getUser() {
-        return (String) properties.get(Property.USER_ID);
+        final String userId = (String) properties.get(Property.USER_ID);
+        Validate.isTrue(StringUtils.isNotEmpty(userId), "Authenticated user not found in context.");
+        return userId;
     }
 
     protected <R> R getResult() {
