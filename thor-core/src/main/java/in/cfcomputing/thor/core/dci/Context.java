@@ -105,11 +105,11 @@ public abstract class Context {
         contextProperties.remove(key);
     }
 
-    protected void bind() {
+    public void bind() {
         ContextHolder.bind(this);
     }
 
-    protected void unbind() {
+    public void unbind() {
         ContextHolder.unbind();
     }
 

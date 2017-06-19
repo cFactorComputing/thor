@@ -28,6 +28,11 @@
                 <version>${odin.version}</version>
             </dependency>
             <dependency>
+                <groupId>in.cfcomputing.odin</groupId>
+                <artifactId>odin-domain</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>${odin-spring.version}</version>
