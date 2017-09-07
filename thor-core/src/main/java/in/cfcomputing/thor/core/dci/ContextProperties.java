@@ -13,7 +13,7 @@ class ContextProperties {
     private enum Property {
         RESULT,
         FACTORY_PROVIDER,
-        USER_ID,
+        USER,
         TRANSACTIONAL
     }
 
@@ -55,14 +55,20 @@ class ContextProperties {
         properties.put(Property.FACTORY_PROVIDER, factoryObject);
     }
 
-    protected void addUser(final String userId) {
-        properties.put(Property.USER_ID, userId);
+    protected void addUser(final Object userId) {
+        properties.put(Property.USER, userId);
     }
 
-    protected String getUser() {
-        final String userId = (String) properties.get(Property.USER_ID);
+    protected String getUserId() {
+        final String userId = (String) properties.get(Property.USER);
         Validate.isTrue(StringUtils.isNotEmpty(userId), "Authenticated user not found in context.");
         return userId;
+    }
+
+    protected <T> T getUser() {
+        final T user = (T) properties.get(Property.USER);
+        Validate.notNull(user, "Authenticated user not found in context.");
+        return user;
     }
 
     protected <R> R getResult() {

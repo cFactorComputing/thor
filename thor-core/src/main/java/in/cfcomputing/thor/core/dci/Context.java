@@ -36,7 +36,7 @@ public abstract class Context {
         return (T) this;
     }
 
-    public <T extends Context> T withUser(final String user) {
+    public <T extends Context> T withUser(final Object user) {
         contextProperties.addUser(user);
         return (T) this;
     }
@@ -46,7 +46,7 @@ public abstract class Context {
     }
 
     public String userId() {
-        return contextProperties.getUser();
+        return contextProperties.getUserId();
     }
 
     public abstract void initialize();
