@@ -1,6 +1,8 @@
 package in.cfcomputing.thor.core.dci;
 
 
+import in.cfcomputing.odin.core.services.security.domain.BaseAuthenticatedUser;
+import in.cfcomputing.odin.core.services.security.oauth2.access.domain.OdinUserDetails;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.transaction.annotation.Propagation;
@@ -60,15 +62,23 @@ class ContextProperties {
     }
 
     protected String getUserId() {
-        final String userId = (String) properties.get(Property.USER);
+        final String userId;
+        final Object user = properties.get(Property.USER);
+        if (user instanceof OdinUserDetails) {
+            final OdinUserDetails userDetails = (OdinUserDetails) user;
+            userId = userDetails.getUserId();
+        } else {
+            userId = (String) user;
+        }
         Validate.isTrue(StringUtils.isNotEmpty(userId), "Authenticated user not found in context.");
         return userId;
     }
 
-    protected <T> T getUser() {
-        final T user = (T) properties.get(Property.USER);
-        Validate.notNull(user, "Authenticated user not found in context.");
-        return user;
+    protected BaseAuthenticatedUser getUser() {
+        final Object user = properties.get(Property.USER);
+        Validate.isTrue(user instanceof OdinUserDetails, "BaseAuthenticated user not set in context.");
+        final OdinUserDetails userDetails = (OdinUserDetails) user;
+        return (BaseAuthenticatedUser) userDetails.getAuthenticatedUser();
     }
 
     protected <R> R getResult() {
