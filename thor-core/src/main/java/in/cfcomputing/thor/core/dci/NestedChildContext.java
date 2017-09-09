@@ -51,7 +51,7 @@ public abstract class NestedChildContext extends DeferredContext {
     }
 
     @Override
-    public <T extends Context> T withUser(final String user) {
+    public <T extends Context> T withUser(final Object user) {
         return rootContext().withUser(user);
     }
 
