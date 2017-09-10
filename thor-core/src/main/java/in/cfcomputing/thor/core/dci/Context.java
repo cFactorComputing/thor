@@ -1,6 +1,7 @@
 package in.cfcomputing.thor.core.dci;
 
 
+import in.cfcomputing.odin.core.services.security.domain.BaseAuthenticatedUser;
 import org.apache.commons.lang3.Validate;
 import org.springframework.transaction.annotation.Propagation;
 
@@ -47,6 +48,10 @@ public abstract class Context {
 
     public String userId() {
         return contextProperties.getUserId();
+    }
+
+    public BaseAuthenticatedUser user() {
+        return contextProperties.getUser();
     }
 
     public abstract void initialize();
