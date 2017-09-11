@@ -31,4 +31,8 @@ public abstract class AbstractDciFacade {
         }
         return StringUtils.EMPTY;
     }
+
+    protected <T> T user() {
+        return authenticatedUserProvider.user();
+    }
 }

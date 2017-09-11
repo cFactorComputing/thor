@@ -1,6 +1,7 @@
 package in.cfcomputing.thor.core.dci;
 
 
+import in.cfcomputing.odin.core.services.security.domain.BaseAuthenticatedUser;
 import org.springframework.transaction.annotation.Propagation;
 
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public abstract class NestedRootContext extends DeferredContext {
     }
 
     @Override
-    public <T extends Context> T withUser(final String user) {
+    public <T extends Context> T withUser(final Object user) {
         if (isSameContext()) {
             getContextProperties().addUser(user);
             return (T) this;
@@ -87,9 +88,17 @@ public abstract class NestedRootContext extends DeferredContext {
     @Override
     public String userId() {
         if (isSameContext()) {
-            return getContextProperties().getUser();
+            return getContextProperties().getUserId();
         }
         return existingContext().userId();
+    }
+
+    @Override
+    public BaseAuthenticatedUser user() {
+        if (isSameContext()) {
+            return getContextProperties().getUser();
+        }
+        return existingContext().user();
     }
 
     @Override

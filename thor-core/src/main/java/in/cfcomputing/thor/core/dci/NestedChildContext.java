@@ -1,6 +1,7 @@
 package in.cfcomputing.thor.core.dci;
 
 
+import in.cfcomputing.odin.core.services.security.domain.BaseAuthenticatedUser;
 import org.apache.commons.lang3.Validate;
 import org.springframework.transaction.annotation.Propagation;
 
@@ -51,7 +52,7 @@ public abstract class NestedChildContext extends DeferredContext {
     }
 
     @Override
-    public <T extends Context> T withUser(final String user) {
+    public <T extends Context> T withUser(final Object user) {
         return rootContext().withUser(user);
     }
 
@@ -78,6 +79,11 @@ public abstract class NestedChildContext extends DeferredContext {
     @Override
     public String userId() {
         return rootContext().userId();
+    }
+
+    @Override
+    public BaseAuthenticatedUser user() {
+        return rootContext().user();
     }
 
     @Override
