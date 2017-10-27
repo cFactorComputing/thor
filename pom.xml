@@ -4,11 +4,11 @@
     <parent>
         <groupId>in.cfcomputing</groupId>
         <artifactId>odin</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.3</version>
     </parent>
     <groupId>in.cfcomputing</groupId>
     <artifactId>thor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
 
     <name>cFactor::Thor</name>
@@ -16,7 +16,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <odin.version>1.3-SNAPSHOT</odin.version>
+        <odin.version>1.3</odin.version>
         <thor-javax-inject.version>1</thor-javax-inject.version>
     </properties>
 
@@ -25,7 +25,7 @@
             <dependency>
                 <groupId>in.cfcomputing.odin</groupId>
                 <artifactId>odin-core</artifactId>
-                <version>${odin.version}</version>
+                <version>1.3</version>
             </dependency>
             <dependency>
                 <groupId>in.cfcomputing.odin</groupId>
@@ -60,4 +60,8 @@
     <module>thor-core</module>
     <module>thor-main</module>
   </modules>
+
+  <scm>
+    <tag>thor-1.0</tag>
+  </scm>
 </project>
