@@ -58,9 +58,18 @@ public abstract class Context {
 
     public abstract void doExecute();
 
+    public <T> void trait(final Class<T> traitClazz) {
+        trait(traitClazz, null);
+    }
+
     public <T> void trait(final Class<T> traitClazz, final Object argument) {
         try {
-            final Object traitImpl = traitClazz.getConstructor(argument.getClass()).newInstance(argument);
+            final Object traitImpl;
+            if (argument != null) {
+                traitImpl = traitClazz.getConstructor(argument.getClass()).newInstance(argument);
+            } else {
+                traitImpl = traitClazz.newInstance();
+            }
             put(traitImpl);
         } catch (InstantiationException e) {
             throw new IllegalStateException(e);
