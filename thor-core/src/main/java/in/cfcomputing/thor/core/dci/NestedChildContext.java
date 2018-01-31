@@ -82,7 +82,7 @@ public abstract class NestedChildContext extends DeferredContext {
     }
 
     @Override
-    public BaseAuthenticatedUser user() {
+    public <U> U  user() {
         return rootContext().user();
     }
 
