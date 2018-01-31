@@ -1,5 +1,6 @@
 package in.cfcomputing.thor.core.query;
 
+import in.cfcomputing.odin.core.services.security.oauth2.access.domain.OdinUserDetails;
 import in.cfcomputing.odin.core.services.security.provider.AuthenticatedUserProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -58,13 +59,23 @@ public abstract class Query<R, S> {
     }
 
     protected String userId() {
-        final String userId = get(USER.getClass());
-        if (StringUtils.isEmpty(userId)) {
-            final AuthenticatedUserProvider provider = get(AuthenticatedUserProvider.class);
-            Validate.notNull(provider, "Authentication provider is empty.");
-            return provider.userId();
+        final String userId;
+        final Object user = properties.get(USER.getClass());
+        if (user instanceof OdinUserDetails) {
+            final OdinUserDetails userDetails = (OdinUserDetails) user;
+            userId = userDetails.getUserId();
+        } else {
+            userId = (String) user;
         }
+        Validate.isTrue(StringUtils.isNotEmpty(userId), "Authenticated user not found in context.");
         return userId;
+    }
+
+    protected <U> U user() {
+        final Object user = properties.get(USER.getClass());
+        Validate.isTrue(user instanceof OdinUserDetails, "BaseAuthenticated user not set in context.");
+        final OdinUserDetails userDetails = (OdinUserDetails) user;
+        return (U) userDetails.getAuthenticatedUser();
     }
 
     protected abstract R doQuery();
@@ -83,7 +94,7 @@ public abstract class Query<R, S> {
         return put(provider);
     }
 
-    public <T extends Query<R, S>> T withUser(final String user) {
+    public <T extends Query<R, S>> T withUser(final Object user) {
         putValue(USER.getClass(), user);
         return (T) this;
     }
