@@ -60,7 +60,7 @@ public abstract class Query<R, S> {
 
     protected String userId() {
         final String userId;
-        final Object user = properties.get(USER.getClass());
+        final Object user = properties.get(USER.getClass().getName());
         if (user instanceof OdinUserDetails) {
             final OdinUserDetails userDetails = (OdinUserDetails) user;
             userId = userDetails.getUserId();
@@ -72,7 +72,7 @@ public abstract class Query<R, S> {
     }
 
     protected <U> U user() {
-        final Object user = properties.get(USER.getClass());
+        final Object user = properties.get(USER.getClass().getName());
         Validate.isTrue(user instanceof OdinUserDetails, "BaseAuthenticated user not set in context.");
         final OdinUserDetails userDetails = (OdinUserDetails) user;
         return (U) userDetails.getAuthenticatedUser();
