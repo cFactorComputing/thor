@@ -4,11 +4,10 @@
     <parent>
         <groupId>in.cfcomputing</groupId>
         <artifactId>thor</artifactId>
-        <version>1.0</version>
+        <version>1.01</version>
     </parent>
     <groupId>in.cfcomputing.thor</groupId>
     <artifactId>thor-main</artifactId>
-    <version>1.0</version>
     <name>cFactor::Thor::Main</name>
     <url>http://cfcomputing.in</url>
     <properties>
